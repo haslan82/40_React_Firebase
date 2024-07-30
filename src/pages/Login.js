@@ -1,8 +1,15 @@
 import { useState } from "react";
 import {login } from "../firebase";
+import {useDispatch} from "react-redux";
+import {login as loginHandle} from "../store/auth"
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
   
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -10,9 +17,13 @@ const Login = () => {
     e.preventDefault()
     
     const user = await login(email, password)
-    console.log(user)
+    if (user){
+    dispatch(loginHandle(user))
+    navigate("/", {
+        replace:true
+    })
     }
-  
+}
     return (
       <form className="max-w-xl mx-auto grid gap-y-4 py-4" onSubmit={handleSubmit}>
         <div>
@@ -46,8 +57,10 @@ const Login = () => {
               type="password"
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm rounded border-gray-200 "
               placeholder="*****"
+              autocomplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+             
             />
           </div>
         </div>

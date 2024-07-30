@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { register } from "../firebase";
 
+
+
+
 const Register = () => {
   
+
+ 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -10,7 +15,7 @@ const Register = () => {
     e.preventDefault()
     
     const user = await register(email, password)
-    console.log(user)
+   
     }
   
     return (

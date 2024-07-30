@@ -1,6 +1,6 @@
 
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import toast, { Toaster } from 'react-hot-toast';
 
 const firebaseConfig = {
@@ -42,5 +42,14 @@ return true
     toast.error(error.message)
   }
 }
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("USER", user)
+    const uid = user.uid;
+    
+  } else {
+   console.log("Kullanıcı oturumu kapattı!")
+  }
+});
 
 export default app;
