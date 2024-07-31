@@ -1,7 +1,10 @@
 
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import toast, { Toaster } from 'react-hot-toast';
+import { getAuth, createUserWithEmailAndPassword,updateProfile,updatePassword, sendEmailVerification, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import toast from 'react-hot-toast';
+import {logout as logoutHandle} from "../store/auth"
+import {login as loginHandle} from "../store/auth"
+import {store} from "./store/index"
 
 const firebaseConfig = {
   apiKey: "AIzaSyCYHbx-RTnPs7zRtdlTljtlqimtTAKqGBs",
@@ -14,7 +17,7 @@ const firebaseConfig = {
 
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth();
+export const auth = getAuth();
 
 export const register = async  (email, password) =>{
   try{
@@ -42,13 +45,46 @@ return true
     toast.error(error.message)
   }
 }
+
+export const update = async data => {
+  try{
+    await updateProfile (auth.currentUser, data)
+    toast.success("Profil güncellendi")
+    return true
+  }catch(error){
+    toast.error(error.message)
+  }
+}
+export const resetPassword = async password => {
+  try{
+    await updatePassword(auth.currentUser, password)
+    toast.success("Parolanız güncellendi")
+    return true
+  }catch(error){
+    toast.error(error.message)
+  }
+}
+export const emailVerification = async()=> {
+  try{
+    await sendEmailVerification(auth.currentUser)
+    toast.success(`Doğrulama maili ${auth.currentUser.email} adresine gönderildi, lütfen kontrol edin!`)
+  }catch(error){
+    toast.error(error.message)
+  }
+}
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    console.log("USER", user)
-    const uid = user.uid;
+    store.dispatch(loginHandle({
+      displayName:user.displayName,
+      email:user.email,
+      emailVerified: user.emailVerified,
+      photoURL:user.photoURL,
+      uid:user.uid
+    }))
+    
     
   } else {
-   console.log("Kullanıcı oturumu kapattı!")
+   store.dispatch(logoutHandle())
   }
 });
 

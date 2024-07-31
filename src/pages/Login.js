@@ -57,7 +57,6 @@ const Login = () => {
               type="password"
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm rounded border-gray-200 "
               placeholder="*****"
-              autocomplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
              
