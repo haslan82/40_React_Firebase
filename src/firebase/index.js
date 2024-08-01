@@ -1,10 +1,21 @@
 
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword,updateProfile,updatePassword, sendEmailVerification, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { 
+  getAuth, 
+  createUserWithEmailAndPassword,
+  updateProfile,
+  updatePassword, 
+  sendEmailVerification, 
+  onAuthStateChanged, 
+  signInWithEmailAndPassword, 
+  signOut 
+} from "firebase/auth";
+
+
 import toast from 'react-hot-toast';
 import {logout as logoutHandle} from "../store/auth"
 import {login as loginHandle} from "../store/auth"
-import {store} from "./store/index"
+import {store} from "../store"
 
 const firebaseConfig = {
   apiKey: "AIzaSyCYHbx-RTnPs7zRtdlTljtlqimtTAKqGBs",
@@ -21,7 +32,11 @@ export const auth = getAuth();
 
 export const register = async  (email, password) =>{
   try{
- const {user} = await createUserWithEmailAndPassword (auth, email, password)
+ const {user} = await createUserWithEmailAndPassword (
+  auth, 
+  email, 
+  password
+);
  return user
 } catch(error){
   toast.error(error.message)

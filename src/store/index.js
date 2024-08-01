@@ -5,9 +5,8 @@ import auth from "./auth";
 
 
 
-const store = configureStore({
+export const store = configureStore({
     reducer:{
         auth
     }
 })
-export default store;
