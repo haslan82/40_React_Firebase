@@ -18,5 +18,5 @@ Projede, Redux ve Firebase kullanarak kullanıcı yönetimi işlevselliği geli�
 
 <img src="./public/Zight Recording 2024-08-01 at 10.13.04 AM.gif"/>
 
-###  Designed by <a href="https://www.linkedin.com/in/h%C3%BCseyin-aslan-128519203/" target="_blank">Hüseyin ASLAN</a> 
+###  Designed by <a href="https://www.linkedin.com/in/huseyin-aslan-128519203/" target="_blank">Hüseyin ASLAN</a> 
 
